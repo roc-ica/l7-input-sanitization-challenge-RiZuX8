@@ -24,9 +24,22 @@
 
     // Voeg het bericht toe aan een database met een enkele tabel
     // Zorg voor eigen credentials voor deze database
-    // Maak gebruik van prepared statements om SQL-injectie te voorkomen 
+    // Maak gebruik van prepared statements om SQL-injectie te voorkomen
 
-    // je code hier...
+    $servername = "localhost";
+    $username = "saitization_challange";
+    $password = "eVfk2i_o8uQGOj.m";
+    $dbname = "input_sanitization_challenge";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    $sql = "INSERT INTO `messages` (`message`) VALUES (?)";
+    $stmt = $conn->prepare($sql);
+
+    $userMessage = htmlspecialchars($userMessage, ENT_QUOTES, 'UTF-8');
+    $stmt->bind_param('s', $userMessage);
+    $stmt->execute();
+    $stmt->close();
 
 ?>
 
